@@ -11,10 +11,15 @@ class BlinkyWithDomain(Elaboratable):
         clk = platform.request("CLK100")
         timer  = Signal(self.width)
 
+        seg = platform.request("7SEG")
+
         m = Module()
         m.domains.sync = ClockDomain()
         m.d.comb += ClockSignal().eq(clk.i)
         m.d.sync += timer.eq(timer + 1)
+
+        m.d.comb += seg.CA.o.eq(1)
+        m.d.comb += seg.AN0.o.eq(1)
 
         for i in range(0,16):
             sw = platform.request("SW", i)

@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-from nmigen.build import Platform, Resource, Pins, PinsN, Clock, Attrs, Connector
+from nmigen.build import Platform, Resource, Pins, PinsN, Clock, Attrs, Connector, Subsignal
 from nmigen.build.run import LocalBuildProducts
 from nmigen.cli import main_parser, main_runner
 from nmigen.vendor.xilinx_7series import Xilinx7SeriesPlatform
@@ -103,34 +103,40 @@ class Basys3Platform(Xilinx7SeriesPlatform):
         Resource("BTN", 4, Pins("U18", dir="i"), Attrs(IOSTANDARD="LVCMOS33")),
 
         # 7seg anode/cathodes: AN[0-3] C[A(0),B(1),C(2),D(3),E(4),F(5),G(6),P(7)]
-        Resource("AN", 0, PinsN("U2", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("AN", 1, PinsN("U4", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("AN", 2, PinsN("V4", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("AN", 3, PinsN("W4", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("C", 0, PinsN("W7", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("C", 1, PinsN("W6", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("C", 2, PinsN("U8", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("C", 3, PinsN("V8", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("C", 4, PinsN("U5", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("C", 5, PinsN("V5", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("C", 6, PinsN("U7", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("C", 7, PinsN("V7", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
+        Resource("7SEG", 0,
+            Subsignal("AN0", Pins("U2", dir="o")),
+            Subsignal("AN1", Pins("U4", dir="o")),
+            Subsignal("AN2", Pins("V4", dir="o")),
+            Subsignal("AN3", Pins("W4", dir="o")),
+            Subsignal("CA", PinsN("W7", dir="o")),
+            Subsignal("CB", PinsN("W6", dir="o")),
+            Subsignal("CC", PinsN("U8", dir="o")),
+            Subsignal("CD", PinsN("V8", dir="o")),
+            Subsignal("CE", PinsN("U5", dir="o")),
+            Subsignal("CF", PinsN("V5", dir="o")),
+            Subsignal("CG", PinsN("U7", dir="o")),
+            Subsignal("CP", PinsN("V7", dir="o")),
+            Attrs(IOSTANDARD="LVCMOS33")
+        ),
 
         # VGA port
-        Resource("RED", 0, Pins("G19", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("RED", 1, Pins("H19", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("RED", 2, Pins("J19", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("RED", 3, Pins("N19", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("GRN", 0, Pins("J17", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("GRN", 1, Pins("H17", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("GRN", 2, Pins("G17", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("GRN", 3, Pins("D17", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("BLU", 0, Pins("N18", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("BLU", 1, Pins("L18", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("BLU", 2, Pins("K18", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("BLU", 3, Pins("J18", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("HSYNC", 0, Pins("P19", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
-        Resource("VSYNC", 0, Pins("R19", dir="o"), Attrs(IOSTANDARD="LVCMOS33")),
+        Resource("VGA", 0,
+            Subsignal("RED0", Pins("G19", dir="o")),
+            Subsignal("RED1", Pins("H19", dir="o")),
+            Subsignal("RED2", Pins("J19", dir="o")),
+            Subsignal("RED3", Pins("N19", dir="o")),
+            Subsignal("GRN0", Pins("J17", dir="o")),
+            Subsignal("GRN1", Pins("H17", dir="o")),
+            Subsignal("GRN2", Pins("G17", dir="o")),
+            Subsignal("GRN3", Pins("D17", dir="o")),
+            Subsignal("BLU0", Pins("N18", dir="o")),
+            Subsignal("BLU1", Pins("L18", dir="o")),
+            Subsignal("BLU2", Pins("K18", dir="o")),
+            Subsignal("BLU3", Pins("J18", dir="o")),
+            Subsignal("HSYNC", Pins("P19", dir="o")),
+            Subsignal("VSYNC", Pins("R19", dir="o")),
+            Attrs(IOSTANDARD="LVCMOS33")
+        ),
 
     ]
 
