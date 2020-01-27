@@ -1,0 +1,11 @@
+#!/bin/bash
+
+FILE=""
+
+if [[ -z $1 ]]; then
+	FILE="build/top.bit"
+else
+	FILE=$1
+fi
+
+djtgcfg prog -d Basys3 -i 0 -f $FILE
