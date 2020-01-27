@@ -13,6 +13,8 @@ class BlinkyWithDomain(Elaboratable):
 
         seg = platform.request("7SEG")
 
+        io1 = platform.request("JA")
+
         m = Module()
         m.domains.sync = ClockDomain()
         m.d.comb += ClockSignal().eq(clk.i)
@@ -20,6 +22,11 @@ class BlinkyWithDomain(Elaboratable):
 
         m.d.comb += seg.CA.o.eq(1)
         m.d.comb += seg.AN0.o.eq(1)
+
+        m.d.comb += io1.P1.oe.eq(1)
+
+        with m.If(platform.request("BTN", 4).i):
+            m.d.comb += io1.P1.o.eq(timer[24])
 
         for i in range(0,16):
             sw = platform.request("SW", i)

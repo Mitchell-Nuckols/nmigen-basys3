@@ -138,6 +138,57 @@ class Basys3Platform(Xilinx7SeriesPlatform):
             Attrs(IOSTANDARD="LVCMOS33")
         ),
 
+        # JA GPIO
+        Resource("JA", 0,
+            Subsignal("P1", Pins("J1")),
+            Subsignal("P2", Pins("L2")),
+            Subsignal("P3", Pins("J2")),
+            Subsignal("P4", Pins("G2")),
+            Subsignal("P7", Pins("H1")),
+            Subsignal("P8", Pins("K2")),
+            Subsignal("P9", Pins("H2")),
+            Subsignal("P10", Pins("G3")),
+            Attrs(IOSTANDARD="LVCMOS33")
+        ),
+
+        # JB GPIO
+        Resource("JB", 0,
+            Subsignal("P1", Pins("A14")),
+            Subsignal("P2", Pins("A16")),
+            Subsignal("P3", Pins("B15")),
+            Subsignal("P4", Pins("B16")),
+            Subsignal("P7", Pins("A15")),
+            Subsignal("P8", Pins("A17")),
+            Subsignal("P9", Pins("C15")),
+            Subsignal("P10", Pins("C16")),
+            Attrs(IOSTANDARD="LVCMOS33")
+        ),
+
+        # JC GPIO
+        Resource("JC", 0,
+            Subsignal("P1", Pins("K17")),
+            Subsignal("P2", Pins("M18")),
+            Subsignal("P3", Pins("N17")),
+            Subsignal("P4", Pins("P18")),
+            Subsignal("P7", Pins("L17")),
+            Subsignal("P8", Pins("M19")),
+            Subsignal("P9", Pins("P17")),
+            Subsignal("P10", Pins("R18")),
+            Attrs(IOSTANDARD="LVCMOS33")
+        ),
+
+        # JXADC GPIO
+        Resource("JXADC", 0,
+            Subsignal("P1", Pins("J3")),
+            Subsignal("P2", Pins("L3")),
+            Subsignal("P3", Pins("M2")),
+            Subsignal("P4", Pins("N2")),
+            Subsignal("P7", Pins("K3")),
+            Subsignal("P8", Pins("M3")),
+            Subsignal("P9", Pins("M1")),
+            Subsignal("P10", Pins("N1")),
+            Attrs(IOSTANDARD="LVCMOS33")
+        ),
     ]
 
     def toolchain_program(self, products, name):
