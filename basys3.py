@@ -5,6 +5,7 @@ from nmigen.build import Platform, Resource, Pins, PinsN, Clock, Attrs, Connecto
 from nmigen.build.run import LocalBuildProducts
 from nmigen.cli import main_parser, main_runner
 from nmigen.vendor.xilinx_7series import Xilinx7SeriesPlatform
+from nmigen_boards.resources import SPIFlashResources
 
 __all__ = ["Basys3Platform"]
 
@@ -188,6 +189,17 @@ class Basys3Platform(Xilinx7SeriesPlatform):
             Subsignal("P9", Pins("M1")),
             Subsignal("P10", Pins("N1")),
             Attrs(IOSTANDARD="LVCMOS33")
+        ),
+
+        # Onboard SPI flash
+        *SPIFlashResources(0,
+            cs="K19",
+            clk="C11",
+            mosi="D18",
+            miso="D19",
+            wp="G18",
+            hold="F18",
+            attrs=Attrs(IOSTANDARD="LVCMOS33")
         ),
     ]
 
